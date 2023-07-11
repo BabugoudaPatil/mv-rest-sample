@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - include:
+      file: "changesets/v0001.yaml"
+      relativeToChangelogFile: true
+  - include:
+      file: "changesets/v0002.yaml"
+      relativeToChangelogFile: true
+  - include:
+      file: "changesets/v0003.yaml"
+      relativeToChangelogFile: true
+

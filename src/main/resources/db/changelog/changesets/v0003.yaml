@@ -1,0 +1,91 @@
+databaseChangeLog:
+  - changeSet:
+      id: populate_table_employee_dev
+      author: test_author
+      failOnError: false
+      context: dev
+      changes:
+        - tagDatabase:
+            tag: version_3.0
+        - insert:
+            tableName: employee
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: patil
+              - column:
+                  name: salary
+                  value: 100000
+              - column:
+                  name: place
+                  value: vijayapura
+              - column:
+                  name: active
+                  value: true
+      rollback:
+        - delete:
+            tableName: employee
+            where: id=1
+  - changeSet:
+      id: populate_table_employee_qa
+      author: test_author
+      failOnError: false
+      context: qa
+      changes:
+        - tagDatabase:
+            tag: version_3.0
+        - insert:
+            tableName: employee
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: name
+                  value: patil_1
+              - column:
+                  name: salary
+                  value: 100000
+              - column:
+                  name: place
+                  value: vijayapura_1
+              - column:
+                  name: active
+                  value: false
+      rollback:
+        - delete:
+            tableName: employee
+            where: id=2
+  - changeSet:
+      id: populate_table_employee_dev_qa
+      author: test_author
+      failOnError: false
+      context: dev,qa
+      changes:
+        - tagDatabase:
+            tag: version_3.0
+        - insert:
+            tableName: employee
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: name
+                  value: patil_2
+              - column:
+                  name: salary
+                  value: 100000
+              - column:
+                  name: place
+                  value: vijayapura_2
+              - column:
+                  name: active
+                  value: true
+      rollback:
+        - delete:
+            tableName: employee
+            where: id=2

@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: add_new_columns_to_employee
+      author: test_author
+      changes:
+        - tagDatabase:
+            tag: version_2.0
+        - addColumn:
+            tableName: employee
+            columns:
+              - column:
+                  name: salary
+                  type: integer
+              - column:
+                  name: place
+                  type: VARCHAR(20)
+              - column:
+                  name: active
+                  type: boolean

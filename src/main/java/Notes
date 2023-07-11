@@ -1,0 +1,135 @@
+spring-boot-starter
+spring-boot-starter-web
+spring-boot-starter-tomcat
+spring-boot-starter-jetty
+spring-boot-starter-data-jpa
+spring-boot-starter-validation
+spring-boot-starter-log4j2
+spring-boot-starter-data-mongodb
+spring-boot-starter-security
+
+spring-cloud-starter
+spring-cloud-starter-vault-config
+spring-cloud-starter-openfeign
+spring-cloud-starter-circuitbreaker-resilience4j
+
+Annotations
+@SpringBootApplication (@SpringBootConfiguration + @EnableAutoConfiguration + @ComponentScan)
+@Configuration
+@Bean
+
+@RestController = @Controller + @ResponseBody
+@ResponseStatus
+@PathVariable Long id
+@RequestParam(name = "x", required = false) String x
+@RequestBody String body
+@RequestBody GetProductDetailsRequest productDetailsRequest
+@Validated
+@Valid
+
+@RequestMapping (path="", consumes= "application/json")
+@PostMapping(path = "/employee", consumes = "application/json")
+@GetMapping()
+@DeleteMapping()
+@PutMapping()
+@RestControllerAdvice = @ControllerAdvice + @ResponseBody
+@ExceptionHandler(value = {Exception.class})
+
+@Controller
+@Component <- @Controller, @Service, @Repository
+@Autowired
+@Qualifier
+
+@PropertySources(@PropertySource(value = "file:${SECRETSVOL}/secrets.properties"))
+@Value("${webhook.secret}")
+
+Trace logs for transaction rollback checks
+logging.level.org.springframework.orm.jpa=TRACE
+logging.level.org.springframework.transaction=TRACE
+
+Junits
+@ExtendWith(MockitoExtension.class)
+class UserServiceUnitTest {
+
+    @Mock
+    UserService userService;
+
+    @BeforeEach
+    public void init()
+
+    @Test
+    public void testMenthod()
+}
+
+@SpringBootTest
+@ContextConfiguration(classes = {MvRestSampleApplication.class})
+@WebAppConfiguration
+public class EmployeeControllerTest {
+
+  @Autowired
+  private WebApplicationContext webApplicationContext;
+
+  private MockMvc mockMvc;
+
+  @MockBean
+  private EmployeeService employeeService;
+
+  @BeforeEach
+  public void setup() {
+    this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
+  }
+
+  @Test
+  void testFindById() throws Exception {
+    Employee employee = new Employee();
+    employee.setId(112233L);
+    employee.setName("TestUser");
+    when(employeeService.findById(112233L)).thenReturn(employee);
+
+    final MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/employee/112233"))
+        .andDo(print())
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.id").value("112233"))
+        .andReturn();
+    assertEquals("application/json", mvcResult.getResponse().getContentType());
+  }
+}
+
+Sample Rest get API call
+String url = "https://jsonplaceholder.typicode.com/posts";
+
+// create headers
+HttpHeaders headers = new HttpHeaders();
+headers.setBasicAuth("username", "password");
+
+HttpEntity request = new HttpEntity(headers);
+ResponseEntity<String> response = restTemplate.exchange(
+        url,
+        HttpMethod.GET,
+        request,
+        String.class
+);
+
+Sample Rest Post call
+URI uri = new URI("http://localhost:"+randomServerPort+"/employees/");
+Employee employee = new Employee("Adam", "Gilly", "test@email.com");
+
+HttpHeaders headers = new HttpHeaders();
+headers.set("X-COM-PERSIST", "true");
+headers.set("X-COM-LOCATION", "USA");
+
+HttpEntity<Employee> httpEntity = new HttpEntity<>(employee, headers);
+
+ResponseEntity<String> result = restTemplate.postForEntity(uri, httpEntity, String.class);
+
+//Data source configuration
+    @Bean(name = "h2DataSource")
+    public DataSource h2DataSource()
+    {
+        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+        dataSourceBuilder.driverClassName("org.h2.Driver");
+        dataSourceBuilder.url("jdbc:h2:file:C:/temp/test");
+        dataSourceBuilder.username("sa");
+        dataSourceBuilder.password("");
+        return dataSourceBuilder.build();
+    }
