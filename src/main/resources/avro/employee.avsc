@@ -1,0 +1,22 @@
+{
+  "name": "EmployeeEvent",
+  "type": "record",
+  "namespace": "com.sample.avro",
+  "fields": [
+    {
+      "name": "name",
+      "doc": "The employee name",
+      "type": ["null", "string"]
+    },
+    {
+      "name": "id",
+      "doc": "The employee id",
+      "type": "int"
+    },
+    {
+      "name": "address",
+      "doc": "The address of the employee",
+      "type": ["null", "com.sample.avro.Address"]
+    }
+  ]
+}

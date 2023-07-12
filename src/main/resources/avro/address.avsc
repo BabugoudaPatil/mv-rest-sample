@@ -1,0 +1,17 @@
+{
+  "name": "Address",
+  "type": "record",
+  "namespace": "com.sample.avro",
+  "fields": [
+    {
+      "name": "place",
+      "doc": "The employee address place",
+      "type": ["null", "string"]
+    },
+    {
+      "name": "PIN",
+      "doc": "The employee address PIN",
+      "type": "int"
+    }
+  ]
+}
